@@ -1,45 +1,22 @@
 package pages;
 
-import driver.Browser;
+import elements.Logo;
+import elements.Text;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-/**
- * Page of popular theme
- */
+
 public class OnlinerThemePage {
 
-    /**
-     * Constructor to find elements on page
-     * @param browser browser[Firefox/Chrome]
-     */
-    public OnlinerThemePage(Browser browser){
-        themeTitle = browser.getDriver()
-                .findElement(By.xpath("//h1[contains(@class, 'schema-header__title')]"));
-        onlinerLogo = browser.getDriver()
-                .findElement(By.className("onliner_logo"));
-    }
+    private static final String THEME_TITLE_LOCATOR = "//h1[contains(@class, 'schema-header__title')]";
+    private static final String ONLINER_LOGO_LOCATOR = "onliner_logo";
 
-    /**
-     * Theme title
-     */
-    private WebElement themeTitle;
-    /**
-     * Onliner logo
-     */
-    private WebElement onlinerLogo;
+    private Text themeTitle = new Text(By.xpath(THEME_TITLE_LOCATOR));
+    private Logo onlinerLogo = new Logo(By.className(ONLINER_LOGO_LOCATOR));
 
-    /**
-     * To get theme title text
-     * @return titles' text
-     */
     public String getThemeTitle(){
         return themeTitle.getText();
     }
 
-    /**
-     * Go to main page (click onto onliner logo)
-     */
     public void goToMainPage(){
         onlinerLogo.click();
     }
