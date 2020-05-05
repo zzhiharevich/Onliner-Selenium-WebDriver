@@ -1,13 +1,11 @@
 import driver.Browser;
-import driver.Type;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import pages.LoginForm;
-import pages.OnlinerMainPage;
-import pages.OnlinerProfileTab;
-import pages.OnlinerThemePage;
-import java.util.ResourceBundle;
+import pages.*;
+import utilities.PropertiesHandler;
+
 import java.util.concurrent.TimeUnit;
 
 public class OnlinerTest {
@@ -15,57 +13,65 @@ public class OnlinerTest {
     private String login;
     private String password;
     private String URL;
-    private OnlinerMainPage onlinerMainPage = new OnlinerMainPage();
-    private LoginForm loginForm = new LoginForm();
+    private OnlinerAuthorizedUserMainPage onlinerAuthorizedUserMainPage = new OnlinerAuthorizedUserMainPage();
+    private OnlinerNotAuthorizedUserMainPage onlinerNotAuthorizedUserMainPage = new OnlinerNotAuthorizedUserMainPage();
+    private OnlinerLoginPage onlinerLoginPage = new OnlinerLoginPage();
     private OnlinerProfileTab profileTab = new OnlinerProfileTab();
     private OnlinerThemePage themePage = new OnlinerThemePage();
 
     @BeforeMethod
     public void setUp(){
-        ResourceBundle properties = ResourceBundle.getBundle("prop");
+        PropertiesHandler propertiesHandler = new PropertiesHandler();
 
-        login = properties.getString("login");
-        password = properties.getString("password");
-        final String browserType = properties.getString("browser");
-        URL = properties.getString("URL");
+        login = propertiesHandler.getLogin();
+        password = propertiesHandler.getPassword();
+        final String browserType = propertiesHandler.getBrowser();
+        URL = propertiesHandler.getURL();
 
-        Browser.setBrowser(Type.valueOf(browserType));
+        //Browser.setBrowser(Type.valueOf(browserType));
+        Browser.setBrowser(browserType);
         Browser.getDriver().manage().window().maximize();
         Browser.getDriver().manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+
+    }
+
+    @AfterMethod
+    public void quit(){
+        Browser.getDriver().quit();
+        System.out.println("QUIT");
     }
 
     @Test
     public void onlinerTest(){
         Browser.getDriver().get(URL);
-        boolean isOpen = onlinerMainPage.isMainPageOpen();
+        boolean isOpen = onlinerNotAuthorizedUserMainPage.isMainPageOpen();
         Assert.assertTrue(isOpen, "Main page was not open or open not a main page.");
 
-        boolean isLoggedIn = onlinerMainPage.isLoggedIn();
+        boolean isLoggedIn = onlinerNotAuthorizedUserMainPage.isLoggedIn();
         Assert.assertFalse(isLoggedIn, "You already log in.");
 
-        onlinerMainPage.clickLogIn();
-        boolean isLogInPageOpen = loginForm.isPageOpen();
+        onlinerNotAuthorizedUserMainPage.clickLogIn();
+        boolean isLogInPageOpen = onlinerLoginPage.isPageOpen();
         Assert.assertTrue(isLogInPageOpen, "LogIn page was not open.");
 
-        loginForm.login(login, password);
+        onlinerLoginPage.login(login, password);
 
-        loginForm.waitUntilBackgroundStaleness();
+        onlinerLoginPage.waitUntilBackgroundStaleness();
 
-        boolean isLogInSuccessful = onlinerMainPage.isSuccessfulLogIn();
+        boolean isLogInSuccessful = onlinerAuthorizedUserMainPage.isSuccessfulLogIn();
         Assert.assertTrue(isLogInSuccessful, "Error with log in.");
 
-        int themeNumber = onlinerMainPage.getOneRandomPopularTheme();
-        String themeText = onlinerMainPage.goToRandomTheme(themeNumber);
+        int themeNumber = onlinerAuthorizedUserMainPage.getOneRandomPopularTheme();
+        System.out.println(themeNumber);
+        String themeText = onlinerAuthorizedUserMainPage.goToRandomTheme(themeNumber);
         String realText = themePage.getThemeTitle();
         Assert.assertEquals(themeText, realText, "Not this page");
 
         themePage.goToMainPage();
-        boolean isMainPage = onlinerMainPage.isMainPageOpen();
+        boolean isMainPage = onlinerAuthorizedUserMainPage.isMainPageOpen();
         Assert.assertTrue(isMainPage, "Main page was not open or open not a main page.");
 
-        onlinerMainPage.logOut();
+        onlinerAuthorizedUserMainPage.logOut();
         profileTab.logOut();
-
-        Browser.getDriver().quit();
     }
 }

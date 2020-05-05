@@ -2,16 +2,13 @@ package pages;
 
 import elements.Logo;
 import elements.Text;
-import org.openqa.selenium.By;
+import utilities.Locators;
 
 
 public class OnlinerThemePage {
 
-    private static final String THEME_TITLE_LOCATOR = "//h1[contains(@class, 'schema-header__title')]";
-    private static final String ONLINER_LOGO_LOCATOR = "onliner_logo";
-
-    private Text themeTitle = new Text(By.xpath(THEME_TITLE_LOCATOR));
-    private Logo onlinerLogo = new Logo(By.className(ONLINER_LOGO_LOCATOR));
+    private Text themeTitle = new Text(Locators.getLocator("onlinerThemePage.text.title_xpath"));
+    private Logo onlinerLogo = new Logo(Locators.getLocator("onlinerThemePage.logo.onliner_className"));
 
     public String getThemeTitle(){
         return themeTitle.getText();

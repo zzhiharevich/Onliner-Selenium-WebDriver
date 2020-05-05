@@ -15,26 +15,18 @@ public abstract class Browser {
     }
 
 
-    public static void setBrowser(Type type) {
+    public static void setBrowser(String type) {
         if (null != driver){
             driver.quit();
         }
 
-        switch (type) {
-            case CHROME: {
-                driver = browserChrome();
-                break;
-            }
-            case FIREFOX: {
-                driver = browserFirefox();
-                break;
-            }
-            case IE: {
-                driver = browserIE();
-                break;
-            }
-            default:
-                break;
+        if ("CHROME".equals(type)) {
+            driver = browserChrome();
+        } else if ("FIREFOX".equals(type)) {
+            driver = browserFirefox();
+        } else if ("IE".equals(type)) {
+            driver = browserIE();
+        } else {
         }
     }
 
