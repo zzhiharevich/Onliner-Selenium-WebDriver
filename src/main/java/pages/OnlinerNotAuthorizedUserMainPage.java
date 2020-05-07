@@ -4,19 +4,42 @@ import elements.Button;
 import elements.Logo;
 import utilities.Locators;
 
+/**
+ * Класс предоставляющий связь с главной веб-страницей сайта, когда пользователь еще не авторизовался.
+ * @author Александра Жихаревич
+ * @version 1.0
+ */
 public class OnlinerNotAuthorizedUserMainPage {
 
-    private Logo onlinerLogo = new Logo(Locators.getLocator("onlinerNotAuthorizedUserMainPage.logo.onliner_xpath"));
-    private Button loginButton = new Button(Locators.getLocator("onlinerNotAuthorizedUserMainPage.button.login_xpath"));
+    /**
+     * Приватный объект, предствавляющий веб-элемент типа Logo; логотип сайта onliner.
+     */
+    private Logo onlinerLogo = new Logo(Locators.getLocator("onlinerNotAuthorizedUserMainPage.logo.onliner_css"));
+    /**
+     * Приватный объект, предствавляющий веб-элемент типа Игеещт; кнопка Вход.
+     */
+    private Button loginButton = new Button(Locators.getLocator("onlinerNotAuthorizedUserMainPage.button.login_className"));
 
+    /**
+     * Метод, проверяющий, открылась ли главная страница.
+     * @return true - открылась / false - не открылась.
+     */
     public boolean isMainPageOpen(){
         return onlinerLogo.isExist();
     }
-    public boolean isLoggedIn(){
-        return !loginButton.isExist();
-    }
-    public void clickLogIn() {
 
+    /**
+     * Метод, проверяющий, вышел ли пользователь из системы.
+     * @return true - вышел / false - не вышел.
+     */
+    public boolean isLoggedOut(){
+        return loginButton.isExist();
+    }
+
+    /**
+     * Метод, выполняющий нажатие на кнопку входа и открывающий страницу авторизации.
+     */
+    public void clickLogIn() {
         loginButton.click();
     }
 }

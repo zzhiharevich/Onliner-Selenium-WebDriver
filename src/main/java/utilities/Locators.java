@@ -1,21 +1,40 @@
 package utilities;
 
 import org.openqa.selenium.By;
-
 import java.util.ResourceBundle;
 
+/**
+ * Класс, осуществляющий чтение и обработку значения локатора по ключу из properties файла.
+ * @author Александра Жихаревич
+ * @version 1.0
+ */
 public class Locators {
 
+    /**
+     * Приватный объект класса ResourceBundle, предоставляющий функционал для работы с properties файлом.
+     */
     private static ResourceBundle locatorsResourceBundle;
 
+    /**
+     * Приватные типа локаторов.
+     */
     private enum LocatorType{
         id, name, css, xpath, tag, text, partText, className;
     }
 
+    /**
+     * Инициализация поля locatorsResourceBundle.
+     */
     static {
         locatorsResourceBundle = ResourceBundle.getBundle("locators");
     }
 
+    /**
+     * Метод, выполняющий чтение данных из properties файла. В зависимости от типа локатора, указанного в названии,
+     * возвращает способ получения веб-элемента.
+     * @param locator Ключ (имя) для поиска значения локатора в файле.
+     * @return By объект (локатор)
+     */
     public static By getLocator(String locator){
         String[] locatorItems = locator.split("_",2);
         LocatorType locatorType = LocatorType.valueOf(locatorItems[1]);
