@@ -1,11 +1,8 @@
 package pages;
 
-import driver.Browser;
 import elements.Logo;
 import elements.Text;
-import org.openqa.selenium.WebElement;
 import utilities.Locators;
-import utilities.Wait;
 
 /**
  * Класс предоставляющий связь с главной веб-страницей сайта, когда пользователь авторизовался.

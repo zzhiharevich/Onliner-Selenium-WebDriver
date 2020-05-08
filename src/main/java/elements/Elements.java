@@ -30,7 +30,7 @@ public abstract class Elements {
      * Метод для получения веб-элемента, найденного драйвером по заданному локатору.
      * @return Найденный WebElement
      */
-    WebElement getElement() {
+    public WebElement getElement() {
         return Browser.getDriver().findElement(locator);
     }
 

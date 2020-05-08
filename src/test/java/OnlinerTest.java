@@ -74,7 +74,7 @@ public class OnlinerTest {
 
         Browser.setBrowser(browserType);
         Browser.getDriver().manage().window().maximize();
-        //Browser.getDriver().manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        Browser.getDriver().manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 
     }
 

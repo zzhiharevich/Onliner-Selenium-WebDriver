@@ -1,7 +1,7 @@
 package pages;
 
 import driver.Browser;
-import utilities.Wait;
+import utilities.WaitHandler;
 import elements.Button;
 import elements.Text;
 import elements.TextField;
@@ -63,7 +63,7 @@ public class OnlinerLoginPage {
      * Метод, использующий ожидания; ожидает до тех пор, пока не закроется страница авторизации.
      */
     public void waitUntilBackgroundStaleness() {
-        new Wait().waitUntilStaleness(getLoginFormBackground());
+        new WaitHandler().waitUntilStaleness(getLoginFormBackground());
     }
 
 }

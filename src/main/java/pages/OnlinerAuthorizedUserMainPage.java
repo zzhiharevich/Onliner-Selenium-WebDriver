@@ -3,7 +3,9 @@ package pages;
 import elements.Logo;
 import elements.PopularTheme;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Wait;
 import utilities.Locators;
+import utilities.WaitHandler;
 
 import java.util.Random;
 
@@ -31,6 +33,7 @@ public class OnlinerAuthorizedUserMainPage {
      * Метод, открывающий окно профиля.
      */
     public void logOut(){
+        new WaitHandler().waitUntilVisible(profileLogo);
         profileLogo.click();
     }
 
