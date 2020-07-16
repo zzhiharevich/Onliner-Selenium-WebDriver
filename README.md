@@ -1,5 +1,7 @@
 # Onliner-Selenium-WebDriver
 
+## [Отчет по курсовой работе](https://github.com/zzhiharevich/Onliner-Selenium-WebDriver/blob/master/ZhiharevichAA_Course_Report.pdf)
+
 ## Задание курсовой работы:
 1. Обзор основный техник тестирования web-приложений.
 1. Разработка стратегии внедрения автоматизации тестирования на примере проекта web-приложения.
